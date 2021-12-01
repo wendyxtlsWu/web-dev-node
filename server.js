@@ -3,6 +3,8 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/webdev');
 
 
 app.use(function(req, res, next) {
@@ -19,9 +21,12 @@ app.get('/hello', (req, res) => {
     res.send('Hello World!');
 });
 
-require('./services/movies-service')(app);
-require('./services/tweeter-service')(app);
-require('./services/profile-service')(app);
-
+//require('./services/movies-service')(app);
+// require('./services/tweeter-service')(app);
+require('./tweets/tweeter-service')(app);
+//require('./services/profile-service')(app);
+require('./profile/profile-service')(app);
+require('./movies/service')(app);
+require('./who/who-service')(app);
 app.listen(process.env.PORT || 4000);
 

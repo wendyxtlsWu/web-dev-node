@@ -1,0 +1,350 @@
+> show dbs
+admin                   0.000GB
+config                  0.000GB
+local                   0.000GB
+webdev                  0.000GB
+whiteboard-cs5610-sp21  0.000GB
+
+> use webdev
+switched to db webdev
+
+> db.movies.insert({title: 'Aliens', rating: 4.5})
+WriteResult({ "nInserted" : 1 })
+
+> show dbs
+admin                   0.000GB
+config                  0.000GB
+local                   0.000GB
+webdev                  0.000GB
+whiteboard-cs5610-sp21  0.000GB
+
+> db.movies.insert({title: 'Terminator', rating: 4.8})
+WriteResult({ "nInserted" : 1 })
+> db.movies.insert({title: 'Avatar', rating: 4.7})
+WriteResult({ "nInserted" : 1 })
+> db.movies.insert({title: 'Dune', rating: 4.9})
+WriteResult({ "nInserted" : 1 })
+
+> db.movies.find();
+{ "_id" : ObjectId("61a6cddaa5d1231287b32baa"), "title" : "Aliens", "rating" : 4.5 }
+{ "_id" : ObjectId("61a6ce27a5d1231287b32bab"), "title" : "Terminator", "rating" : 4.8 }
+{ "_id" : ObjectId("61a6ce3ba5d1231287b32bac"), "title" : "Avatar", "rating" : 4.7 }
+{ "_id" : ObjectId("61a6ce4ea5d1231287b32bad"), "title" : "Dune", "rating" : 4.9 }
+
+>  db.movies.find({_id: ObjectId("61a6cddaa5d1231287b32baa")})
+{ "_id" : ObjectId("61a6cddaa5d1231287b32baa"), "title" : "Aliens", "rating" : 4.5 }
+
+> db.movies.find({title: 'Aliens'});
+{ "_id" : ObjectId("61a6cddaa5d1231287b32baa"), "title" : "Aliens", "rating" : 4.5 }
+
+>  db.movies.find().pretty()
+{
+        "_id" : ObjectId("61a6cddaa5d1231287b32baa"),
+        "title" : "Aliens",
+        "rating" : 4.5
+}
+{
+        "_id" : ObjectId("61a6ce27a5d1231287b32bab"),
+        "title" : "Terminator",
+        "rating" : 4.8
+}
+{
+        "_id" : ObjectId("61a6ce3ba5d1231287b32bac"),
+        "title" : "Avatar",
+        "rating" : 4.7
+}
+{
+        "_id" : ObjectId("61a6ce4ea5d1231287b32bad"),
+        "title" : "Dune",
+        "rating" : 4.9
+}
+
+> db.movies.updateOne({title: 'Avatar'}, {$set: {rating: 4.9}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+> db.movies.updateOne({_id: ObjectId("61a6ce27a5d1231287b32bab")}, {$set: {rating: 4.5}});
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+> db.movies.deleteOne({_id: ObjectId("61a6da4119f5b3aa98571b2d")});
+{ "acknowledged" : true, "deletedCount" : 1 }
+
+> db.movies.find()
+{ "_id" : ObjectId("61a6cddaa5d1231287b32baa"), "title" : "Aliens", "rating" : 4.5 }
+{ "_id" : ObjectId("61a6ce27a5d1231287b32bab"), "title" : "Terminator", "rating" : 4.5 }
+{ "_id" : ObjectId("61a6ce3ba5d1231287b32bac"), "title" : "Avatar", "rating" : 4.9 }
+{ "_id" : ObjectId("61a6ce4ea5d1231287b32bad"), "title" : "Dune", "rating" : 4.9 }
+
+> db.tweets.insert({
+...     "topic" : "Web Development",
+...     "userName" : "NodeJS",
+...     "verified" : true,
+...     "handle" : "NodeJS",
+...     "title" : "",
+...     "tweet" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+...     "time" : "last month",
+...     "logo-image" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToCOdtp1sfknhbhKKD93RrEG4PDinvpn6rDg&usqp=CAU",
+...     "avatar-image" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToCOdtp1sfknhbhKKD93RrEG4PDinvpn6rDg&usqp=CAU",
+...     "tweets" : "120K",
+...     "stats" : {
+...       "comments" : 123,
+...       "retweets" : 234,
+...       "likes" : 345
+...     }
+...   })
+WriteResult({ "nInserted" : 1 })
+> db.tweets.insert({
+...     "topic" : "Web Development",
+...     "userName" : "ReactJS",
+...     "verified" : false,
+...     "handle" : "ReactJS",
+...     "time" : "2h",
+...     "title" : "React.js is a component based front end library that makes it very easy to build Single Page Applications or SPAs",
+...     "tweet" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+...     "attachments" : {
+...       "video" : "unKvMC3Y1kI"
+...     },
+...     "logo-image" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToCOdtp1sfknhbhKKD93RrEG4PDinvpn6rDg&usqp=CAU",
+...     "avatar-image" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToCOdtp1sfknhbhKKD93RrEG4PDinvpn6rDg&usqp=CAU",
+...     "stats" : {
+...       "comments" : 123,
+...       "retweets" : 234,
+...       "likes" : 345
+...     },
+...     "avatarIcon" : "https://images.g2crowd.com/uploads/product/image/social_landscape/social_landscape_1e0d62f445e6448af1e125f5702c8227/reactjs-development-services.png"
+...   })
+WriteResult({ "nInserted" : 1 })
+> db.tweets.insert({
+...    "topic" : "Space",
+...    "userName" : "SpaceX",
+...    "verified" : false,
+...    "handle" : "spacex",
+...    "title" : "",
+...    "tweet" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+...    "attachments" : {
+...      "image" : "../images/starship.png"
+...    },
+...    "time" : "last month",
+...    "logo-image" : "https://media.bitdegree.org/storage/media/images/2018/12/node-js-interview-questions-logo-2-266x300.png",
+...    "avatar-image" : "https://media.bitdegree.org/storage/media/images/2018/12/node-js-interview-questions-logo-2-266x300.png",
+...    "tweets" : "120K",
+...    "stats" : {
+...      "comments" : 123,
+...      "retweets" : 234,
+...      "likes" : 345
+...    }
+...   })
+WriteResult({ "nInserted" : 1 })
+> db.tweets.insert({
+...     "topic" : "Space",
+...     "userName" : "Scott Manley",
+...     "verified" : true,
+...     "handle" : "DJSnM",
+...     "published-date" : "2020-12-10",
+...     "time" : "1 day",
+...     "title" : "JavaScript is programming language that can run on browsers as well as desktops",
+...     "tweet" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+...     "logo-image" : "https://www.computerhope.com/jargon/j/javascript.png",
+...     "avatar-image" : "https://www.computerhope.com/jargon/j/javascript.png",
+...     "tweets" : "123K",
+...     "stats" : {
+...       "comments" : 123,
+...       "retweets" : 234,
+...       "likes" : 345
+...     }
+...   })
+WriteResult({ "nInserted" : 1 })
+> db.tweets.insert({
+...    "topic" : "Web Development",
+...    "userName" : "jQuery",
+...    "verified" : false,
+...    "handle" : "jQuery",
+...    "title" : "jQuery",
+...    "tweet" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+...    "time" : "last week",
+...    "logo-image" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0piW6se2qOCklvwm3DhD3JB6a7yJDLikpsf7OxDmaJhjxCQ9kzWsXmCt8tYxlEYSeH6s&usqp=CAU",
+...    "avatar-image" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0piW6se2qOCklvwm3DhD3JB6a7yJDLikpsf7OxDmaJhjxCQ9kzWsXmCt8tYxlEYSeH6s&usqp=CAU",
+...    "tweets" : "122K",
+...    "stats" : {
+...      "comments" : 123,
+...      "retweets" : 234,
+...      "likes" : 345
+...    }
+...   })
+WriteResult({ "nInserted" : 1 })
+
+> db.tweets.find().pretty()
+{
+        "_id" : ObjectId("61904f641c10d96d5441678a"),
+        "topic" : "Web Development",
+        "userName" : "NodeJS",
+        "verified" : true,
+        "handle" : "NodeJS",
+        "title" : "",
+        "tweet" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "time" : "last month",
+        "logo-image" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToCOdtp1sfknhbhKKD93RrEG4PDinvpn6rDg&usqp=CAU",
+        "avatar-image" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToCOdtp1sfknhbhKKD93RrEG4PDinvpn6rDg&usqp=CAU",
+        "tweets" : "120K",
+        "stats" : {
+                "comments" : 123,
+                "retweets" : 234,
+                "likes" : 345
+        }
+}
+{
+        "_id" : ObjectId("619066221c10d96d5441678b"),
+        "topic" : "Web Development",
+        "userName" : "ReactJS",
+        "verified" : false,
+        "handle" : "ReactJS",
+        "time" : "2h",
+        "title" : "React.js is a component based front end library that makes it very easy to build Single Page Applications or SPAs",
+        "tweet" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "attachments" : {
+                "video" : "unKvMC3Y1kI"
+        },
+        "logo-image" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToCOdtp1sfknhbhKKD93RrEG4PDinvpn6rDg&usqp=CAU",
+        "avatar-image" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToCOdtp1sfknhbhKKD93RrEG4PDinvpn6rDg&usqp=CAU",
+        "stats" : {
+                "comments" : 123,
+                "retweets" : 234,
+                "likes" : 345
+        },
+        "avatarIcon" : "https://images.g2crowd.com/uploads/product/image/social_landscape/social_landscape_1e0d62f445e6448af1e125f5702c8227/reactjs-development-services.png"
+}
+{
+        "_id" : ObjectId("6190663b1c10d96d5441678c"),
+        "topic" : "Space",
+        "userName" : "SpaceX",
+        "verified" : false,
+        "handle" : "spacex",
+        "title" : "",
+        "tweet" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "attachments" : {
+                "image" : "../images/starship.png"
+        },
+        "time" : "last month",
+        "logo-image" : "https://media.bitdegree.org/storage/media/images/2018/12/node-js-interview-questions-logo-2-266x300.png",
+        "avatar-image" : "https://media.bitdegree.org/storage/media/images/2018/12/node-js-interview-questions-logo-2-266x300.png",
+        "tweets" : "120K",
+        "stats" : {
+                "comments" : 123,
+                "retweets" : 234,
+                "likes" : 345
+        }
+}
+{
+        "_id" : ObjectId("619066511c10d96d5441678d"),
+        "topic" : "Space",
+        "userName" : "Scott Manley",
+        "verified" : true,
+        "handle" : "DJSnM",
+        "published-date" : "2020-12-10",
+        "time" : "1 day",
+        "title" : "JavaScript is programming language that can run on browsers as well as desktops",
+        "tweet" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "logo-image" : "https://www.computerhope.com/jargon/j/javascript.png",
+        "avatar-image" : "https://www.computerhope.com/jargon/j/javascript.png",
+        "tweets" : "123K",
+        "stats" : {
+                "comments" : 123,
+                "retweets" : 234,
+                "likes" : 345
+        }
+}
+{
+        "_id" : ObjectId("6190666c1c10d96d5441678e"),
+        "topic" : "Web Development",
+        "userName" : "jQuery",
+        "verified" : false,
+        "handle" : "jQuery",
+        "title" : "jQuery",
+        "tweet" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "time" : "last week",
+        "logo-image" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0piW6se2qOCklvwm3DhD3JB6a7yJDLikpsf7OxDmaJhjxCQ9kzWsXmCt8tYxlEYSeH6s&usqp=CAU",
+        "avatar-image" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0piW6se2qOCklvwm3DhD3JB6a7yJDLikpsf7OxDmaJhjxCQ9kzWsXmCt8tYxlEYSeH6s&usqp=CAU",
+        "tweets" : "122K",
+        "stats" : {
+                "comments" : 123,
+                "retweets" : 234,
+                "likes" : 345
+        }
+}
+
+db.who.insert({"avatarIcon" : "https://cdn.vox-cdn.com/thumbor/_AobZZDt_RVStktVR7mUZpBkovc=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/assets/1087137/java_logo_640.jpg", "userName": "Java", "handle": "Java" })
+WriteResult({ "nInserted" : 1 })
+
+db.who.insert({"avatarIcon" : "https://static.scientificamerican.com/sciam/cache/file/6E625B76-174D-42CC-9E965F2BDD729C85_source.jpeg", "userName" : "Relativity Space", "handle" : "relativityspace" })
+WriteResult({ "nInserted" : 1 })
+
+db.who.insert({"avatarIcon" : "https://upload.wikimedia.org/wikipedia/en/7/71/Virgin_Orbin_company_logo_2017.png", "userName" : "Virgin Galactic","handle" : "virgingalactic" })
+WriteResult({ "nInserted" : 1 })
+
+db.who.insert({"avatarIcon" : "https://i1.sndcdn.com/avatars-JUvAAPvAA86fmbVE-SH0i6g-t500x500.jpg","userName" : "NASA","handle" : "NASA" })
+WriteResult({ "nInserted" : 1 })
+
+db.who.insert({"avatarIcon" : "https://download.logo.wine/logo/Tesla%2C_Inc./Tesla%2C_Inc.-Logo.wine.png","userName" : "Tesla","handle" : "Teslaaaaa"})
+WriteResult({ "nInserted" : 1 })
+
+> db.who.find().pretty()
+{
+        "_id" : ObjectId("619067cc1c10d96d54416790"),
+        "avatarIcon" : "https://static.scientificamerican.com/sciam/cache/file/6E625B76-174D-42CC-9E965F2BDD729C85_source.jpeg",
+        "userName" : "Relativity Space",
+        "handle" : "relativityspace"
+}
+{
+        "_id" : ObjectId("61906ec31c10d96d54416791"),
+        "avatarIcon" : "https://upload.wikimedia.org/wikipedia/en/7/71/Virgin_Orbin_company_logo_2017.png",
+        "userName" : "Virgin Galactic",
+        "handle" : "virgingalactic"
+}
+{
+        "_id" : ObjectId("61909fcd1c10d96d54416792"),
+        "avatarIcon" : "https://cdn.vox-cdn.com/thumbor/_AobZZDt_RVStktVR7mUZpBkovc=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/assets/1087137/java_logo_640.jpg",
+        "userName" : "Java",
+        "handle" : "Java"
+}
+{
+        "_id" : ObjectId("6190a0261c10d96d54416793"),
+        "avatarIcon" : "https://i1.sndcdn.com/avatars-JUvAAPvAA86fmbVE-SH0i6g-t500x500.jpg",
+        "userName" : "NASA",
+        "handle" : "NASA"
+}
+{
+        "_id" : ObjectId("6190a08a1c10d96d54416794"),
+        "avatarIcon" : "https://download.logo.wine/logo/Tesla%2C_Inc./Tesla%2C_Inc.-Logo.wine.png",
+        "userName" : "Tesla",
+        "handle" : "Teslaaaaa"
+}
+
+> db.profile.insert({
+...   "fullName" : "Jingjing Wu",
+...   "handle" : "jingjing",
+...   "profilePicture" : "https://www.w3schools.com/howto/img_avatar2.png",
+...   "bannerPicture" : "https://static.vecteezy.com/system/resources/thumbnails/000/701/690/small/abstract-polygonal-banner-background.jpg",
+...   "bio" : "VP",
+...   "website" : "https://www.",
+...   "location" : "San Jose",
+...   "dateOfBirth" : "03/25/1995",
+...   "dateJoined" : "01/01/2020",
+...   "followingCount" : 212,
+...   "followersCount" : 180
+... })
+WriteResult({ "nInserted" : 1 })
+
+> db.profiles.find().pretty()
+{
+        "_id" : ObjectId("61a6cc45a5d1231287b32ba9"),
+        "fullName" : "Jingjing Wu",
+        "handle" : "jingjing",
+        "profilePicture" : "https://www.w3schools.com/howto/img_avatar2.png",
+        "bannerPicture" : "https://static.vecteezy.com/system/resources/thumbnails/000/701/690/small/abstract-polygonal-banner-background.jpg",
+        "bio" : "VP",
+        "website" : "https://www.",
+        "location" : "San Jose",
+        "dateOfBirth" : "03/25/1995",
+        "dateJoined" : "01/01/2020",
+        "followingCount" : 212,
+        "followersCount" : 180
+}
